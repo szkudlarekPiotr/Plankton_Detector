@@ -1,0 +1,60 @@
+html, body, form{
+    height:100%;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    font-family:'Inter', sans-serif;
+}
+
+.side_menu{
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+    flex-direction: column;
+    width: 25%;
+    background-color: lightgray;
+}
+
+
+#description{
+    font-size: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#submit{
+    margin-bottom: 40px;
+    background-color: chartreuse;
+    margin-top: auto;
+    justify-self: flex-end;
+    height: 50px;
+    width: 80%;
+    border-radius: 25px;
+    border: 2px white;
+    box-shadow: 0 0 0 4px white;
+    font-size: 25px;
+}
+
+.upload_field {
+    margin: auto;
+    display: flex;
+    justify-content: right;
+    flex-basis: auto;
+}
+
+
+.upload_button{
+    justify-self: right;
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.upload_field p{
+    display:none
+}
+
+
+
+
+

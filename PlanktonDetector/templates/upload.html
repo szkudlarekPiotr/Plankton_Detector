@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plankton Detector</title>
+    <link rel="stylesheet" href="{% static 'DetectionApp/css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="side_menu">
+        {% if not img_saved%}
+            <p id="description">Choose image for analysis</p>
+        {% else %}
+            <p id="description">Photo saved</p>
+        {%endif%}
+        <input type="submit" id="submit" value="Submit">
+    </div>
+    <div class="upload_field">
+        <label for="id_image", class="upload_button">
+            {{form.as_p}}
+            {% if not img_path %}
+                <img src="{% static 'DetectionApp/images/upload_img.png' %}" alt="upload_image">
+            {%else%}
+                <img src="{%get_media_prefix %}{{img_path}}" alt="upload_image">
+            {%endif%}
+        </label>
+    </div>
+    </form>
+</body>
+</html>
