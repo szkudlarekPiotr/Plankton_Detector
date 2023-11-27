@@ -1,3 +1,7 @@
 # ingore pycache
 
 __pycache__
+
+# yolov8 model
+
+yolov8n.pt

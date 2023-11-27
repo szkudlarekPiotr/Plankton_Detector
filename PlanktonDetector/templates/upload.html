@@ -25,12 +25,29 @@
         <label for="id_image", class="upload_button">
             {{form.as_p}}
             {% if not img_path %}
-                <img src="{% static 'DetectionApp/images/upload_img.png' %}" alt="upload_image">
+                <img id="image-preview" src="{% static 'DetectionApp/images/upload_img.png' %}" alt="Image Preview" style="max-width:640px; max-height:640px;"/>
             {%else%}
-                <img src="{%get_media_prefix %}{{img_path}}" alt="upload_image">
+                <img src="{%get_media_prefix %}{{img_path}}" alt="upload_image" width="640" height="640">
             {%endif%}
         </label>
     </div>
+    </form>
+    <script>
+            document.getElementById('id_image').addEventListener('change', function() {
+            var input = this;
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('image-preview').style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    </script>
     </form>
 </body>
 </html>
