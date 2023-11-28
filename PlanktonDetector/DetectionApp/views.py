@@ -10,9 +10,8 @@ MODEL = YOLO("yolov8n.pt")
 
 
 def view(request):
-    form = DetectForm()
-    print(form.as_p())
     if request.method == "GET":
+        form = DetectForm()
         return render(request, "upload.html", {"form": form})
     form = DetectForm(request.POST, request.FILES)
     if form.is_valid():
@@ -35,4 +34,4 @@ def view(request):
             },
         )
     else:
-        return render(request, "upload.html")
+        return render(request, "upload.html", {"form": form})

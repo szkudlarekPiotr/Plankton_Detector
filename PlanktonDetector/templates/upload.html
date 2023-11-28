@@ -14,12 +14,13 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
     <div class="side_menu">
-        {% if not img_saved%}
+        {% if img_saved is None %}
             <p id="description">Choose image for analysis</p>
+            <input type="submit" id="submit" value="Submit">
         {% else %}
             <p id="description">Photo saved</p>
+            <button onclick="location.href='{% url 'detect' %}'" id='submit' method="GET" type='button'>Submit again</button>
         {%endif%}
-        <input type="submit" id="submit" value="Submit">
     </div>
     <div class="upload_field">
         <label for="id_image", class="upload_button">
