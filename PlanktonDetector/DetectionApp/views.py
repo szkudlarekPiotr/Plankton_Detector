@@ -6,7 +6,7 @@ from django.conf import settings
 from ultralytics import YOLO
 
 # Create your views here.
-MODEL = YOLO("yolov8n.pt")
+MODEL = YOLO("best.pt")
 
 
 def view(request):
