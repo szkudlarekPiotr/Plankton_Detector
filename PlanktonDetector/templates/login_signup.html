@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%load static%}
+{%block extracss%}
+<link rel="stylesheet" href="{% static 'DetectionApp/css/login_signup.css' %}">
+{%endblock extracss%}
+{%block content%}
+<div class="form_div">
+{%if signup is not None%}
+<p class="top_label">Register</p>
+{% else%}
+<p class="top_label">Login</p>
+{%endif%}
+    <form class="form" method="post">
+        {%csrf_token%}
+        {{form}}
+    {% if signup is None%}
+        <input type="submit" id="submit" value="Log in">
+    </form>
+<p class="signup_label">Don't have an account? <a href="{%url 'signup'%}">Sign Up</a></p>
+{%else%}
+        <input type="submit" id="submit" value="Sign Up">
+    </form>
+{%endif%}
+</div>
+{%endblock content%}
