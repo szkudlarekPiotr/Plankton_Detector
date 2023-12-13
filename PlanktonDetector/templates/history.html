@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block extracss%}
+<link rel="stylesheet" href="{% static 'DetectionApp/css/history.css' %}">
+{%endblock extracss%}
+{%block content%}
+<div class="history_list">
+<h2>History</h2>
+        {% for detection in page_obj %}
+        <div class="history_details">
+            <a href="{%url 'detection-details' pk=detection.id %}">
+            <div class="history_details">
+            <img src="{{detection.image.url}}" alt="upload_image" style="width:100px; height:100px;">
+            <div class="date_author">
+            <p class="date">{{detection.date_predicted.date}}</p>
+            <p class="author">{{detection.get_owner}}</p>
+            </div>
+            </div>
+            </a>
+            </div>
+        {% endfor %}
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{%endblock content%}

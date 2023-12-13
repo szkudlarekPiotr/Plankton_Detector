@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block extracss%}
+<link rel="stylesheet" href="{% static 'Community/css/list_posts.css' %}">
+{%endblock extracss%}
+{%block content%}
+<div class="post_list">
+<h2>Posts</h2>
+        {% for post in object_list %}
+            <div class="post_details">
+            <a href="{%url 'post-details' pk=post.id %}">
+            <h3 class="title">{{ post.title }}</h3>
+            <div class="date_author">
+            <p class="date">{{post.date_pub}}</p>
+            <p class="author">{{post.author.username}}</p>
+            </div>
+            </a>
+            </div>
+        {% endfor %}
+</div>
+{%endblock content%}

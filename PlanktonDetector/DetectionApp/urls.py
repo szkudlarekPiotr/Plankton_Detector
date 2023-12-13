@@ -6,7 +6,8 @@ from django.contrib.auth import urls
 
 urlpatterns = [
     path("detect/", views.DetectView.as_view(), name="detect"),
-    path("login/", views.LoginView.as_view(), name="login"),
-    path("logout/", views.logout_view, name="logout"),
-    path("register/", views.SignupView.as_view(), name="signup"),
+    path("history/", views.ListHistory.as_view(), name="history"),
+    path(
+        "detection/<int:pk>", views.DetectionDetails.as_view(), name="detection-details"
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

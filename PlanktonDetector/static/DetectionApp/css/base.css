@@ -28,6 +28,10 @@ body, html{
 
 .footer{
     display:flex;
+    position:fixed;
+    bottom: 0;
+    right: 0;
+    left:0;
     flex-direction: row;
     justify-content: center;
     align-items: center;

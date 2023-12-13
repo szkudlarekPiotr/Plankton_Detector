@@ -7,7 +7,10 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
     <div class="side_menu">
-        {% if img_saved is None %}
+        {% if not user.is_authenticated %}
+            <p id="description">Please login to submit image</p>
+            <button onclick="location.href='{% url 'login' %}'" id='submit' method="GET" type='button'>Login</button>
+        {% elif img_saved is None %}
             <p id="description">Choose image for analysis</p>
             <input type="submit" id="submit" value="Submit">
         {% else %}
@@ -18,10 +21,10 @@
     <div class="upload_field">
         <label for="id_image", class="upload_button">
             {{form.as_p}}
-            {% if not img_path %}
-                <img id="image-preview" src="{% static 'DetectionApp/images/upload_img.png' %}" alt="Image Preview" style="max-width:640px; max-height:640px;"/>
+            {% if not img_url %}
+                <img id="image-preview" src="{% static 'DetectionApp/images/upload_img.png' %}" alt="Image Preview" style="width:640px; height:460px;"/>
             {%else%}
-                <img src="{%get_media_prefix %}{{img_path}}" alt="upload_image" width="640" height="640">
+                <img src="{%get_media_prefix%}{{img_url}}" alt="upload_image" style="width:640px; height:460px;">
             {%endif%}
         </label>
     </div>
