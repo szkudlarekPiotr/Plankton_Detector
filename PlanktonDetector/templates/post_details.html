@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block extracss%}
+<link rel="stylesheet" href="{% static 'DetectionApp/css/detection-detail.css' %}">
+{%endblock extracss%}
+{%block content%}
+    <div class="post">
+        <p class="title">{{object.title}}</p>
+        <p class="content">{{object.content}}</p>
+        <p class="author">{{object.author}}</p>
+    </div>
+    <div class="comments">
+        {%for comments in object.comment_set.all%}
+            <p>{{comments.author}}</p>
+            <p>{{comments.content}}</p>
+            <p>{{comments.post}}</p>
+        {%endfor%}
+    </div>
+{%endblock content%}

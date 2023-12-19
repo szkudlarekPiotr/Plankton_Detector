@@ -22,27 +22,43 @@ class DetectView(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
+        files = request.FILES.getlist("image")
+        predictions = []
         if form.is_valid():
-            image = form.save(commit=False)
-            image.owner = request.user
-            image.save()
-            prediciton_results = predict_image(image)
-            image.predicted_image_url = (
-                f"{image.image.name}_predicted/{image.image.name.split('/')[-1]}"
-            )
-            image.save()
-            PredictedImage.objects.create(
-                original_image=image,
-                image=image.predicted_image_url,
-                confidence=prediciton_results[0]["confidence"],
-                class_name=prediciton_results[0]["name"],
-            )
+            for f in files:
+                image = UploadImage(
+                    image=f,
+                )
+                image.owner = request.user
+                image.save()
+                prediciton_results = predict_image(image)
+                image.predicted_image_url = (
+                    f"{image.image.name}_predicted/{image.image.name.split('/')[-1]}"
+                )
+                image.save()
+                try:
+                    results_metrics = prediciton_results[0]
+                except IndexError as e:
+                    PredictedImage.objects.create(
+                        original_image=image,
+                        image=image.predicted_image_url,
+                        confidence=0.0,
+                        class_name="no predictions",
+                    )
+                else:
+                    PredictedImage.objects.create(
+                        original_image=image,
+                        image=image.predicted_image_url,
+                        confidence=results_metrics["confidence"],
+                        class_name=results_metrics["name"],
+                    )
+                predictions.append(image)
             return render(
                 request,
-                "upload.html",
+                "results.html",
                 {
                     "img_saved": True,
-                    "img_url": image.predicted_image_url,
+                    "img_url": predictions,
                 },
             )
         else:
@@ -53,7 +69,7 @@ class ListHistory(LoginRequiredMixin, ListView):
     model = PredictedImage
     queryset = PredictedImage.objects.all()
     template_name = "history.html"
-    paginate_by = 4
+    paginate_by = 3
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = PredictedImage.objects.filter(

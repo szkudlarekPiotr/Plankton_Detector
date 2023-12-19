@@ -16,13 +16,14 @@ body, html{
 .top-menu{
     display: flex;
     flex-direction: row;
-    height: 5%;
     justify-content:flex-end;
     align-items: center;
     background-color:lightgray;
     margin-bottom:5px;
+    height: 45px;
     border: grey solid;
     border-width: 0px 2px 2px 2px;
+    transition: top 0.3s;
 }
 
 

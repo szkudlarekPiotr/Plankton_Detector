@@ -41,26 +41,24 @@ form{
 .upload_field {
     margin: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: right;
-    flex-basis: auto;
+    width:645px;
+    height: 465px;
 }
 
 
-.upload_button{
+.upload_field label{
     display:flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.upload_field p{
-    display:none
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 
 .upload_field label img{
-    margin-bottom: 5px;
+    margin-right:5px;
+    display: block;
 }
 
 
