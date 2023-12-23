@@ -5,29 +5,31 @@ form{
     display:flex;
     flex-direction:row;
     margin:auto;
+    overflow:hidden;
 }
 
 
 .side_menu{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items:center;
     flex-direction: column;
     width: 25%;
     background-color: lightgray;
-    border: grey solid;
-    border-width: 2px;
-    margin-bottom: 59px;
+    border: 2px grey solid;
+    padding: 0px 0px 40px 0px;
+    margin-bottom: 5px;
+    overflow-y: scroll;
 }
 
 
 #description{
     font-size: 40px;
     text-align: center;
+    margin: 10px 0px 15px 0px;
 }
 
 #submit{
-    margin-bottom: 40px;
     background-color: chartreuse;
     margin-top: auto;
     height: 50px;
@@ -62,3 +64,24 @@ form{
 }
 
 
+.image_number {
+    font-size: medium;
+    margin: 0 0 5px 0 ;
+}
+
+.results{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 70%;
+    align-items: center;
+    border: 2px black solid;
+    border-radius: 5%;
+    margin-bottom: 15px;
+}
+
+.detection_info{
+    font-size: large;
+    text-decoration:solid;
+    color: black;
+}

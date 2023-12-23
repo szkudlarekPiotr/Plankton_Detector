@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
@@ -17,8 +18,7 @@ class UploadImage(models.Model):
 class PredictedImage(models.Model):
     original_image = models.OneToOneField(UploadImage, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=f"plankton/%Y/%m/%d/{original_image.name}")
-    confidence = models.FloatField()
-    class_name = models.CharField(max_length=100)
+    prediction_data = models.JSONField()
     date_predicted = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -28,3 +28,9 @@ class PredictedImage(models.Model):
     @property
     def get_original_image(self):
         return self.original_image.image
+
+    def get_prediction_data(self):
+        results = json.loads(self.prediction_data)
+        for pred in results:
+            pred["confidence"] = round(pred["confidence"] * 100, 2)
+        return results

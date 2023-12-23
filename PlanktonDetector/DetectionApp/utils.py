@@ -16,5 +16,6 @@ def predict_image(image):
         name=f"{image.image.name}_predicted",
         imgsz=[640, 640],
     )
-    x = json.loads(results[0].tojson())
+    for r in results:
+        x = r.tojson()
     return x

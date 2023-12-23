@@ -5,6 +5,7 @@ form{
     display:flex;
     flex-direction:row;
     margin:auto;
+    overflow: hidden;
 }
 
 
@@ -17,7 +18,7 @@ form{
     background-color: lightgray;
     border: grey solid;
     border-width: 2px;
-    margin-bottom: 59px;
+    margin-bottom:5px;
 }
 
 

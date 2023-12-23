@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from .models import UploadImage, PredictedImage
 from .utils import predict_image
 from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 
 
 class DetectView(View):
@@ -37,22 +38,20 @@ class DetectView(View):
                 )
                 image.save()
                 try:
-                    results_metrics = prediciton_results[0]
+                    results_metrics = prediciton_results
                 except IndexError as e:
-                    PredictedImage.objects.create(
+                    predicted_image = PredictedImage.objects.create(
                         original_image=image,
                         image=image.predicted_image_url,
-                        confidence=0.0,
-                        class_name="no predictions",
+                        prediction_data={"data": "no results"},
                     )
                 else:
-                    PredictedImage.objects.create(
+                    predicted_image = PredictedImage.objects.create(
                         original_image=image,
                         image=image.predicted_image_url,
-                        confidence=results_metrics["confidence"],
-                        class_name=results_metrics["name"],
+                        prediction_data=results_metrics,
                     )
-                predictions.append(image)
+                predictions.append(predicted_image)
             return render(
                 request,
                 "results.html",

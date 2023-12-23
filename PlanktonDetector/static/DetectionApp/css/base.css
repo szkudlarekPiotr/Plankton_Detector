@@ -1,10 +1,12 @@
 body, html{
     height:100%;
-    margin: 0px 0px 0px 0px;
+    min-height: 100%;
+    margin: 35px 0px 0px 0px;
     display:flex;
     justify-content: center;
     flex-direction: column;
     font-family:'Inter', sans-serif;
+    overflow-x:hidden
 }
 
 .top-menu a{
@@ -16,10 +18,12 @@ body, html{
 .top-menu{
     display: flex;
     flex-direction: row;
+    position: fixed;
+    top:0;
+    width: 100%;
     justify-content:flex-end;
     align-items: center;
     background-color:lightgray;
-    margin-bottom:5px;
     height: 45px;
     border: grey solid;
     border-width: 0px 2px 2px 2px;
@@ -29,14 +33,10 @@ body, html{
 
 .footer{
     display:flex;
-    position:fixed;
+    position:relative;
     bottom: 0;
-    right: 0;
-    left:0;
+    width: 100%;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
     background-color: lightgray;
     border: grey solid;
     border-width: 2px 2px 0px 2px;

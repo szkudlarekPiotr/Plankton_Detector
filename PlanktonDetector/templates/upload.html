@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{%static 'DetectionApp/css/upload.css' %}">
 {%endblock extracss%}
 {%block content%}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" id="upload_form">
         {% csrf_token %}
     <div class="side_menu">
         {% if not user.is_authenticated %}
@@ -15,6 +15,7 @@
             <input type="submit" id="submit" value="Submit">
         {%endif%}
     </div>
+    <div id="progress"></div>
         <div class="upload_field">
         <label for="id_image", class="upload_button" id="image-preview-container">
             {{form.as_p}}

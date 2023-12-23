@@ -12,15 +12,29 @@
             <button onclick="location.href='{% url 'login' %}'" id='submit' method="GET" type='button'>Login</button>
         {% else %}
             <p id="description">Results:</p>
+            {%for img in img_url%}
+            <p class="image_number">Image {{forloop.counter}}</p>
+            {%for detection in img.get_prediction_data%}
+            <div class="results">
+            <p class="detection_info">{{detection.name}}: {{detection.confidence}}%</p>
+            </div>
+            {%endfor%}
+            {%endfor%}
             <button onclick="location.href='{% url 'detect' %}'" id='submit' method="GET" type='button'>Submit again</button>
         {%endif%}
     </div>
     <div class="upload_field">
             <label>
             {%for img in img_url%}
-                <img src="{%get_media_prefix%}{{img.predicted_image_url}}" alt="upload_image" style="width:640px; height:460px;">
+                <img src="{{img.image.url}}" alt="upload_image" style="width:640px; height:460px;">
             {%endfor%}
             </label>
     </div>
     </form>
+    <script>
+        var results=document.getElementsByClassName("results")
+        for (var i = 0; i < results.length; i++){
+            results[i].style.background=`linear-gradient(90deg, #7fff00 ${results[i].textContent.split(":")[1]}, #FFFFFF 0%)`
+        };
+    </script>
     {%endblock content%}
