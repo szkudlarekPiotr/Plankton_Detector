@@ -1,19 +1,27 @@
 {%extends 'base.html'%}
 {%load static%}
 {%block extracss%}
-<link rel="stylesheet" href="{% static 'DetectionApp/css/detection-detail.css' %}">
+<link rel="stylesheet" href="{% static 'Community/css/post_details.css' %}">
 {%endblock extracss%}
 {%block content%}
+<div class="page-container">
     <div class="post">
-        <p class="title">{{object.title}}</p>
-        <p class="content">{{object.content}}</p>
-        <p class="author">{{object.author}}</p>
+    <div class="title-content">
+        <p id="title">{{object.title}}</p>
+        <p id="content">{{object.content}}</p>
     </div>
+    <div class="author">
+        <p id="author">{{object.author}}</p>
+    </div>
+    </div>
+    <p id="comment-label">Comments:</p>
     <div class="comments">
         {%for comments in object.comment_set.all%}
-            <p>{{comments.author}}</p>
-            <p>{{comments.content}}</p>
-            <p>{{comments.post}}</p>
+    <div class="single-comment">
+            <p id="comment-content">{{comments.content}}</p>
+            <p id="comment-author">{{comments.author}}</p>
+    </div>            
         {%endfor%}
     </div>
+</div>
 {%endblock content%}

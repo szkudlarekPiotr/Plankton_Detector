@@ -67,6 +67,16 @@ document.getElementById('id_image').addEventListener('change', function () {
 
     }
 });
+
+var user = `{{user.is_authenticated}}`
+var upload = document.getElementById("id_image")
+if (user.toLowerCase()=="false"){
+    console.log('disabled');
+    upload.disabled=true;
+}else if (user.toLowerCase()=="true"){
+    console.log("enabled");
+    upload.disabled=false;
+}
     </script>
     </form>
     {%endblock content%}

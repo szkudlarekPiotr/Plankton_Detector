@@ -12,18 +12,12 @@ class UploadImage(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "png"])],
     )
     predicted_image_url = models.CharField(max_length=500)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class PredictedImage(models.Model):
     original_image = models.OneToOneField(UploadImage, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=f"plankton/%Y/%m/%d/{original_image.name}")
     prediction_data = models.JSONField()
-    date_predicted = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def get_owner(self):
-        return self.original_image.owner
 
     @property
     def get_original_image(self):
@@ -34,3 +28,9 @@ class PredictedImage(models.Model):
         for pred in results:
             pred["confidence"] = round(pred["confidence"] * 100, 2)
         return results
+
+
+class PredictionBatch(models.Model):
+    images = models.ManyToManyField(PredictedImage)
+    date_predicted = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)

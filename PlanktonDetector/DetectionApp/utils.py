@@ -16,6 +16,6 @@ def predict_image(image):
         name=f"{image.image.name}_predicted",
         imgsz=[640, 640],
     )
-    for r in results:
-        x = r.tojson()
-    return x
+    for result in results:
+        metrics = result.tojson()
+    return metrics

@@ -6,14 +6,15 @@
 {%block content%}
 <div class="history_list">
 <h2>History</h2>
-        {% for detection in page_obj %}
+{% for detection in page_obj %}
         <div class="history_details">
             <a href="{%url 'detection-details' pk=detection.id %}">
             <div class="history_details">
-            <img src="{{detection.image.url}}" alt="upload_image" style="width:100px; height:100px;">
+            <img src="{{detection.images.first.image.url}}" alt="upload_image" style="width:125px; height:125px;">
             <div class="date_author">
             <p class="date">{{detection.date_predicted.date}}</p>
-            <p class="author">{{detection.get_owner}}</p>
+            <p class="author">{{detection.owner}}</p>
+            <p class="num_images">Images uploaded: {{detection.images.all.count}}</p>
             </div>
             </div>
             </a>

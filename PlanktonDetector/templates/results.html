@@ -12,7 +12,7 @@
             <button onclick="location.href='{% url 'login' %}'" id='submit' method="GET" type='button'>Login</button>
         {% else %}
             <p id="description">Results:</p>
-            {%for img in img_url%}
+            {%for img in img.images.all %}
             <p class="image_number">Image {{forloop.counter}}</p>
             {%for detection in img.get_prediction_data%}
             <div class="results">
@@ -25,10 +25,11 @@
     </div>
     <div class="upload_field">
             <label>
-            {%for img in img_url%}
+            {%for img in img.images.all %}
                 <img src="{{img.image.url}}" alt="upload_image" style="width:640px; height:460px;">
             {%endfor%}
             </label>
+            <button onclick="location.href='{%url 'download_predicitons' pk=img.id%}'" id="download_json" method="GET" type="button">Export predictions</button>
     </div>
     </form>
     <script>
