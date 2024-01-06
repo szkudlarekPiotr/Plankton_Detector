@@ -9,7 +9,7 @@
     <div class="side_menu">
         {% if not user.is_authenticated %}
             <p id="description">Please login to see results</p>
-            <button onclick="location.href='{% url 'login' %}'" id='submit' method="GET" type='button'>Login</button>
+            <a href="{% url 'login'%}?next={{request.path}}" id="submit">Login</a>
         {% else %}
             <p id="description">Results:</p>
             {%for img in img.images.all %}
@@ -20,7 +20,7 @@
             </div>
             {%endfor%}
             {%endfor%}
-            <button onclick="location.href='{% url 'detect' %}'" id='submit' method="GET" type='button'>Submit again</button>
+            <a href="{% url 'detect' %}" id="submit">Submit again</a>
         {%endif%}
     </div>
     <div class="upload_field">
@@ -29,7 +29,7 @@
                 <img src="{{img.image.url}}" alt="upload_image" style="width:640px; height:460px;">
             {%endfor%}
             </label>
-            <button onclick="location.href='{%url 'download_predicitons' pk=img.id%}'" id="download_json" method="GET" type="button">Export predictions</button>
+            <a href="{%url 'download_predicitions' pk=img.id %}" id="download_json">Export predictions</a>
     </div>
     </form>
     <script>

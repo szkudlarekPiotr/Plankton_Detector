@@ -9,7 +9,7 @@
     <div class="side_menu">
         {% if not user.is_authenticated %}
             <p id="description">Please login to submit image</p>
-            <button onclick="location.href='{% url 'login' %}'" id='submit' method="GET" type='button'>Login</button>
+            <a href="{% url 'login' %}?next={{request.path}}" id="submit">Login</a>
         {% else %}
             <p id="description">Choose image for analysis</p>
             <input type="submit" id="submit" value="Submit">
@@ -71,10 +71,8 @@ document.getElementById('id_image').addEventListener('change', function () {
 var user = `{{user.is_authenticated}}`
 var upload = document.getElementById("id_image")
 if (user.toLowerCase()=="false"){
-    console.log('disabled');
     upload.disabled=true;
 }else if (user.toLowerCase()=="true"){
-    console.log("enabled");
     upload.disabled=false;
 }
     </script>

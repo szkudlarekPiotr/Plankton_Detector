@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 from django.views import View
+
 
 class LoginView(View):
     form_class = AuthenticationForm
@@ -12,6 +14,7 @@ class LoginView(View):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
+        redirection_path = request.GET.get("next")
         form = self.form_class(data=request.POST)
         if form.is_valid():
             user = authenticate(
@@ -20,7 +23,10 @@ class LoginView(View):
             )
             if user is not None:
                 login(request, user)
-                return redirect("detect")
+                if redirection_path is not None:
+                    return redirect(redirection_path)
+                else:
+                    return redirect("detect/")
         return render(request, self.template_name, {"form": form})
 
 
@@ -37,10 +43,14 @@ class SignupView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("detect")
+            return redirect("detect/")
         return render(request, self.template_name, {"form": form, "signup": True})
 
 
 def logout_view(request):
+    redirection_path = request.GET.get("next")
     logout(request)
-    return redirect("detect")
+    if redirection_path is not None:
+        return redirect(redirection_path)
+    else:
+        return redirect("detect/")

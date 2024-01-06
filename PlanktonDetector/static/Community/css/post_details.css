@@ -77,9 +77,46 @@ body, html{
     margin-top:10px;
 }
 
-#comment-author{
+#add_comment{
     display: flex;
-    width: 100%;
-    justify-content: flex-end;
+    flex-direction: row;
+    width: 55%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top:30px;
 }
 
+#comment_form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#comment_form textarea{
+    height: auto;
+}
+
+#comment_form label{
+    font-size: 20px;
+}
+
+.date_author{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#submit{
+    background-color: chartreuse;
+    border-radius: 25px;
+    border: 2px solid black;
+    font-size: 20px;
+    text-decoration: none;
+    color:black;
+    font-family: Arial;
+    text-align: center;
+}

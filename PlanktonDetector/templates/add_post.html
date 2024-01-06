@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block extracss%}
+<link rel="stylesheet" href="{% static 'Community/css/add_post.css' %}">
+{%endblock extracss%}
+{%block content%}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add post">
+</form>
+{%endblock content%}

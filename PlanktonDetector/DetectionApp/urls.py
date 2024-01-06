@@ -10,5 +10,5 @@ urlpatterns = [
     path(
         "detection/<int:pk>", views.DetectionDetails.as_view(), name="detection-details"
     ),
-    path("export_pred/<int:pk>", views.download_pred_res, name="download_predicitons"),
+    path("export_pred/<int:pk>", views.download_pred_res, name="download_predicitions"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
