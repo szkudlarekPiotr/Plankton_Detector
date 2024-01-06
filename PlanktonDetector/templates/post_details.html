@@ -14,14 +14,14 @@
         <p id="author">{{object.author}}</p>
     </div>
     </div>
-    <div id="add_comment">
+    <p id="comment-label">Comments:</p>
+        <div id="add_comment">
     <form method="POST" id="comment_form">
     {%csrf_token%}
     {{form}}
     <input type="submit" id="submit" value="Add comment">
     </form>
     </div>
-    <p id="comment-label">Comments:</p>
     <div class="comments">
         {%for comment in object.sorted_comments%}
     <div class="single-comment">

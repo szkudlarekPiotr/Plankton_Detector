@@ -23,7 +23,9 @@
         <a href="{% url 'login' %}?next={{request.path}}">Login</a>
         {%endif%}
     </div>
+    <div class="root">
     {%block content%}{%endblock content%}
+    </div>
     <footer class="footer">
     <p>Footer</p>
     </footer>

@@ -8,9 +8,6 @@ from .models import Post, Comment
 from .froms import PostForm, CommentForm
 
 
-# Create your views here.
-
-
 class ListPosts(ListView):
     model = Post
     template_name = "list_posts.html"
@@ -25,9 +22,6 @@ class PostDetails(DetailView, FormMixin):
     model = Post
     template_name = "post_details.html"
     form_class = CommentForm
-
-    # def get_queryset(self) -> QuerySet[Any]:
-    #     queryset = Post.objects.get(pk=self.request.GET.get("pk"))
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

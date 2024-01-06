@@ -1,0 +1,25 @@
+#add_post{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#add_post p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#submit{
+    background-color: chartreuse;
+    border-radius: 25px;
+    border: 2px solid black;
+    font-size: 20px;
+    text-decoration: none;
+    color:black;
+    font-family: Arial;
+    text-align: center;
+}

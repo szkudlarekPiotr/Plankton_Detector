@@ -1,7 +1,3 @@
-body, html{
-    height: unset;
-}
-
 .page-container{
     display: flex;
     flex-direction: column;
