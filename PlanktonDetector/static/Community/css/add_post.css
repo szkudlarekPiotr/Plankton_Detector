@@ -5,13 +5,15 @@
     align-items: center;
 }
 
-#add_post p{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+#add_post input{
+    margin-bottom: 10px;
 }
 
+#add_post label{
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
 
 #submit{
     background-color: chartreuse;
@@ -22,4 +24,5 @@
     color:black;
     font-family: Arial;
     text-align: center;
+    margin-top: 10px;
 }

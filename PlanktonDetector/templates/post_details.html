@@ -8,20 +8,22 @@
     <div class="post">
     <div class="title-content">
         <p id="title">{{object.title}}</p>
-        <p id="content">{{object.content}}</p>
+        <p id="content">{{object.content|safe}}</p>
     </div>
     <div class="author">
         <p id="author">{{object.author}}</p>
     </div>
     </div>
     <p id="comment-label">Comments:</p>
-        <div id="add_comment">
+    {%if user.is_authenticated%}
+    <div id="add_comment">
     <form method="POST" id="comment_form">
     {%csrf_token%}
     {{form}}
     <input type="submit" id="submit" value="Add comment">
     </form>
     </div>
+    {%endif%}
     <div class="comments">
         {%for comment in object.sorted_comments%}
     <div class="single-comment">

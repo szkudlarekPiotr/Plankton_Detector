@@ -6,7 +6,8 @@
 {%block content%}
 <form method="POST" id="add_post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{form}}
+    {{form.media}}
     <input type="submit" value="Add post" id="submit">
 </form>
 {%endblock content%}

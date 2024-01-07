@@ -12,7 +12,7 @@
     margin-top:10px;
     flex-direction: column;
     justify-content:center;
-    align-items: flex-start;
+    align-items: stretch;
     border: 3px solid lightgray;
     width: 80%;
     padding: 15px;
@@ -30,6 +30,7 @@
     font-size: 40px;
     color: black;
     font-weight: bold;
+    align-self: flex-start;
 }
 
 #content{

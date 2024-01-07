@@ -11,7 +11,7 @@ from .froms import PostForm, CommentForm
 class ListPosts(ListView):
     model = Post
     template_name = "list_posts.html"
-    paginate_by = 3
+    paginate_by = 4
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = Post.objects.all().order_by("-date_pub")
