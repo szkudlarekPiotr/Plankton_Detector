@@ -5,7 +5,7 @@ from io import BytesIO
 from django.conf import settings
 from ultralytics import YOLO
 
-MODEL = YOLO("best.pt")
+MODEL = YOLO("../best.pt")
 
 
 def predict_image(image):
