@@ -5,3 +5,7 @@ __pycache__
 # yolov8 model
 
 yolov8n.pt
+
+#ignore variables
+
+variables.env
