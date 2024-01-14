@@ -1,21 +1,14 @@
-import json
-from django.core.files import File
-from PIL import Image
-from io import BytesIO
 from django.conf import settings
-from ultralytics import YOLO
+from roboflow import Roboflow
+import os
 
-MODEL = YOLO("../best.pt")
+rf = Roboflow(api_key=os.environ["API_KEY_ROBO"])
+model = rf.workspace().project("plankton-vhsho").version(1).model
 
 
 def predict_image(image):
-    results = MODEL.predict(
-        image.image.path,
-        save=True,
-        project=settings.MEDIA_ROOT,
-        name=f"{image.image.name}_predicted",
-        imgsz=[640, 640],
+    results = model.predict(image.image.path)
+    results.save(
+        f"{settings.MEDIA_ROOT}/{image.image.name.split('.')[0]}_predicted.{image.image.name.split('.')[-1]}"
     )
-    for result in results:
-        metrics = result.tojson()
-    return metrics
+    return results.json()

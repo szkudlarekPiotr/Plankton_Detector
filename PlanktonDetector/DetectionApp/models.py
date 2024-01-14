@@ -1,4 +1,3 @@
-import json
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
@@ -16,7 +15,7 @@ class UploadImage(models.Model):
 
 class PredictedImage(models.Model):
     original_image = models.OneToOneField(UploadImage, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=f"plankton/%Y/%m/%d/{original_image.name}")
+    image = models.ImageField(upload_to=f"plankton/%Y/%m/%d/")
     prediction_data = models.JSONField()
 
     @property
@@ -24,7 +23,7 @@ class PredictedImage(models.Model):
         return self.original_image.image
 
     def get_prediction_data(self):
-        results = json.loads(self.prediction_data)
+        results = self.prediction_data["predictions"]
         for pred in results:
             pred["confidence"] = round(pred["confidence"] * 100, 2)
         return results

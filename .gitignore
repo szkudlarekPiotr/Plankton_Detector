@@ -9,3 +9,7 @@ yolov8n.pt
 #ignore variables
 
 variables.env
+
+#local test db
+
+db.sqlite3

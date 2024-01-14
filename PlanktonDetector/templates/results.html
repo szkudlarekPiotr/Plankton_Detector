@@ -16,7 +16,7 @@
             <p class="image_number">Image {{forloop.counter}}</p>
             {%for detection in img.get_prediction_data%}
             <div class="results">
-            <p class="detection_info">{{detection.name}}: {{detection.confidence}}%</p>
+            <p class="detection_info">{{detection.class}}: {{detection.confidence}}%</p>
             </div>
             {%endfor%}
             {%endfor%}

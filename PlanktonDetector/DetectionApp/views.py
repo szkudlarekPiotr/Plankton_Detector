@@ -33,9 +33,7 @@ class DetectView(View):
                 )
                 image.save()
                 prediciton_results = predict_image(image)
-                image.predicted_image_url = (
-                    f"{image.image.name}_predicted/{image.image.name.split('/')[-1]}"
-                )
+                image.predicted_image_url = f"{image.image.name.split('.')[0]}_predicted.{image.image.name.split('.')[-1]}"
                 image.save()
                 try:
                     results_metrics = prediciton_results
