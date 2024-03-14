@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-r!!7nnmlm1=pzcxzjjm510^ab1yr-h6dc5mly_qu&f7qp3x^69
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", ".vercel.app"]
 
 
 # Application definition
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "PlanktonDetector.wsgi.application"
+WSGI_APPLICATION = "PlanktonDetector.wsgi.app"
 
 
 # Database
