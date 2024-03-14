@@ -6,12 +6,14 @@
 {%block content%}
 <div class="history_list">
 <h2>History</h2>
+<div id="container" class="rounded">
+{% if page_obj%}
 {% for detection in page_obj %}
         <div class="history_details">
             <a href="{%url 'detection-details' pk=detection.id %}">
-            <div class="history_details">
+            <div class="history_details" id="histroy_det">
             <img src="{{detection.images.first.image.url}}" alt="upload_image" style="width:125px; height:125px;">
-            <div class="date_author">
+            <div class="date_author" id="date_auth">
             <p class="date">{{detection.date_predicted}}</p>
             <p class="author">{{detection.owner}}</p>
             <p class="num_images">Images uploaded: {{detection.images.all.count}}</p>
@@ -20,7 +22,11 @@
             </a>
             </div>
         {% endfor %}
-        <div class="pagination">
+{%else%}
+<p class="none_info">Nothing here yet ...</p>
+{%endif%}
+</div>
+<div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -38,4 +44,28 @@
     </span>
 </div>
 </div>
+<script>
+window.addEventListener('resize', function() {
+      var historyElement = document.querySelectorAll('.history_details');
+      var date = document.querySelectorAll('.date_author')
+      var windowWidth = window.innerWidth;
+
+      if (windowWidth <= 700) {
+        historyElement.forEach(history =>{
+            history.style.cssText = 'flex-wrap: wrap !important';
+        })
+        date.forEach(date_spec =>{
+            date_spec.style.cssText = 'align-items: center !important';
+        })
+      }
+      else{
+        historyElement.forEach(history =>{
+            history.style.cssText = 'flex-wrap: nowrap !important';
+      })
+        date.forEach(date_spec =>{
+            date_spec.style.cssText = 'align-items: flex-end !important';
+        })
+}
+})
+</script>
 {%endblock content%}

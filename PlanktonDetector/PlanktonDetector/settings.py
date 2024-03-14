@@ -26,6 +26,7 @@ SECRET_KEY = "django-insecure-r!!7nnmlm1=pzcxzjjm510^ab1yr-h6dc5mly_qu&f7qp3x^69
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ["*"]
 
 
@@ -38,10 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "whitenoise.runserver_nostatic",
     "DetectionApp",
     "Community",
     "ckeditor",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -52,10 +54,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "PlanktonDetector.urls"
+
+CSRF_TRUSTED_ORIGINS = ['https://planktondetector.up.railway.app',"https://plankton-detector.projektstudencki.pl/"]
 
 TEMPLATES = [
     {
@@ -79,17 +82,17 @@ WSGI_APPLICATION = "PlanktonDetector.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["DB_NAME"],
-        "USER": os.environ["DB_USERNAME"],
-        "PASSWORD": os.environ["DB_PASSWORD"],
-        "HOST": os.environ["DB_HOST"],
-        "PORT": os.environ["DB_PORT"],
+        "NAME": "s456496",
+        "USER": "s456496",
+        "PASSWORD": "oxickerynescenu",
+        "HOST": "psql.wmi.amu.edu.pl",
+        "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -127,9 +130,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static/"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+#STATICFILES_DIRS=(f"{BASE_DIR}/static/",)
 
 MEDIA_ROOT = BASE_DIR / "uploaded_media"
 
@@ -141,3 +144,15 @@ LOGOUT_REDIRECT_URL = "detect/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': 'auto',
+    },
+}
+
+CKEDITOR_THUMBNAIL_SIZE = (500, 500)

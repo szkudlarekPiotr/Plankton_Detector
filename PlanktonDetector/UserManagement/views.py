@@ -26,7 +26,7 @@ class LoginView(View):
                 if redirection_path is not None:
                     return redirect(redirection_path)
                 else:
-                    return redirect("detect/")
+                    return redirect("/")
         return render(request, self.template_name, {"form": form})
 
 
@@ -43,7 +43,7 @@ class SignupView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("detect/")
+            return redirect("/")
         return render(request, self.template_name, {"form": form, "signup": True})
 
 
@@ -53,4 +53,4 @@ def logout_view(request):
     if redirection_path is not None:
         return redirect(redirection_path)
     else:
-        return redirect("detect/")
+        return redirect("/")

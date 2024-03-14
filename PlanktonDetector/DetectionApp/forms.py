@@ -3,11 +3,11 @@ from pyparsing import removeQuotes
 from .models import UploadImage
 from django.forms import ClearableFileInput, HiddenInput
 from django.contrib.auth.models import User
-
+from django.core.validators import validate_image_file_extension
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
-
+    
 
 class MultipleFileField(forms.FileField):
     def __init__(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class MultipleFileField(forms.FileField):
 
 
 class DetectForm(forms.Form):
-    image = MultipleFileField()
+    image = MultipleFileField(validators=[validate_image_file_extension])
     predicted_image_url = forms.CharField(
         max_length=500, widget=HiddenInput(), required=False
     )

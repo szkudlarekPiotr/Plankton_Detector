@@ -8,6 +8,9 @@
     {% csrf_token %}
     {{form}}
     {{form.media}}
-    <input type="submit" value="Add post" id="submit">
+    <input type="submit" value="Add post" id="submit" class="btn btn-primary">
 </form>
+<script>
+document.getElementById("id_title").classList.add("rounded")
+</script>
 {%endblock content%}

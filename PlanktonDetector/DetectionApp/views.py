@@ -1,6 +1,8 @@
+from io import BytesIO, StringIO
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
+import json
 from django.shortcuts import render
 from django.views import View
 from .forms import DetectForm
@@ -10,6 +12,8 @@ from django.utils.decorators import method_decorator
 from .models import PredictionBatch, UploadImage, PredictedImage
 from .utils import predict_image
 from django.contrib.auth.mixins import LoginRequiredMixin
+import zipfile
+from os.path import basename
 
 
 class DetectView(View):
@@ -32,22 +36,22 @@ class DetectView(View):
                     image=f,
                 )
                 image.save()
-                prediciton_results = predict_image(image)
+                prediction_results = predict_image(image)
                 image.predicted_image_url = f"{image.image.name.split('.')[0]}_predicted.{image.image.name.split('.')[-1]}"
                 image.save()
-                try:
-                    results_metrics = prediciton_results
-                except IndexError as e:
+                if prediction_results["predictions"]:
                     predicted_image = PredictedImage.objects.create(
                         original_image=image,
                         image=image.predicted_image_url,
-                        prediction_data={"data": "no predicitions"},
+                        prediction_data=prediction_results,
                     )
                 else:
                     predicted_image = PredictedImage.objects.create(
                         original_image=image,
-                        image=image.predicted_image_url,
-                        prediction_data=results_metrics,
+                        image=image.image,
+                        prediction_data={
+                            "predictions": [{"confidence": "no predictions"}]
+                        },
                     )
                 predictions.append(predicted_image)
             pred_batch.images.add(*predictions)
@@ -83,10 +87,34 @@ class DetectionDetails(LoginRequiredMixin, DetailView):
     context_object_name = "img"
 
 
-def download_pred_res(request, pk):
+def download_pred(request, pk):
+    zip = request.GET.get("zip", None)
     pred_batch = PredictionBatch.objects.get(pk=pk)
-    response = HttpResponse(content_type="text/plain")
-    response["Content-Disposition"] = "attachment; filename=predictions.txt"
-    for img in pred_batch.images.all():
-        response.write(img.prediction_data)
+    if zip is None:
+        txt = ""
+        response = HttpResponse(content_type="text/plain")
+        response["Content-Disposition"] = "attachment; filename=predictions.txt"
+        for img in pred_batch.images.all():
+            txt += f"Image {img.image.name.split('/')[-1]}\n"
+            for prediction in img.get_prediction_data:
+                txt += f"{prediction}\n"
+        response.write(txt)
+    elif zip == "True":
+        archive = BytesIO()
+        json = StringIO()
+        with zipfile.ZipFile(archive, "w") as zip:
+            for img in pred_batch.images.all():
+                zip.write(img.image.path, basename(img.image.path))
+                for prediction in img.get_prediction_data:
+                    json.write(
+                        f"Image {img.image.name.split('/')[-1]}: \n{prediction}\n"
+                    )
+            zip.writestr("predicitons.txt", json.getvalue())
+        response = HttpResponse(archive.getvalue(), content_type="application/zip")
+        response["Content-Disposition"] = "attachment; filename=predictions.zip"
+        archive.seek(0)
+    else:
+        return HttpResponse(
+            status=500, content=f"bad request - zip does not take argument {zip}"
+        )
     return response

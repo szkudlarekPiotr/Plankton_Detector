@@ -4,7 +4,8 @@
     width: 100%;
     height: 100%;
     align-items: center;
-    overflow: hidden;
+    overflow: auto;
+    padding-bottom: 100px;
 }
 
 .post{
@@ -13,29 +14,22 @@
     flex-direction: column;
     justify-content:center;
     align-items: stretch;
-    border: 3px solid lightgray;
-    width: 80%;
     padding: 15px;
-    border-radius: 5%;
+    margin-top: 40px;
+    margin-bottom: 50px;
 }
 
 .title-content{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 }
 
-#title{
-    font-size: 40px;
-    color: black;
-    font-weight: bold;
-    align-self: flex-start;
-}
 
 #content{
     font-size: 20px;
-    color:black;
+    color:white;
 }
 
 .author{
@@ -47,6 +41,7 @@
 
 #author{
     font-size: 15px;
+    color:white
 }
 
 .comments{
@@ -54,16 +49,8 @@
     flex-direction:column;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 100%;
     margin-bottom: 25px;
-}
-
-#comment-label{
-    font-size: 30px;
-    align-self: flex-start;
-    margin-left: 10%;
-    color:black;
-    font-weight: bold;
 }
 
 .single-comment{
@@ -76,8 +63,8 @@
 
 #add_comment{
     display: flex;
-    flex-direction: row;
-    width: 55%;
+    flex-direction: column;
+    width: 100%;
     justify-content: space-evenly;
     align-items: center;
     margin-top:30px;
@@ -86,34 +73,104 @@
 #comment_form{
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 #comment_form textarea{
     height: auto;
+    border-radius: 3%;
+    background: rgba(238, 234, 234, 0.4);
+    outline-color: rgb(32, 89, 133);
+    border-color: white;
+    color: white;
+    resize: none;
+    width: 100%;
+}
+
+#comment_form textarea::placeholder{
+    color: white;
 }
 
 #comment_form label{
-    font-size: 20px;
+    display: none;
+}
+
+#comment_form *{
+    margin-bottom: 10px;
 }
 
 .date_author{
     display: flex;
     width: 100%;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
 }
 
+.btn-primary{
+    background-color: #205985;
+    --bs-btn-border-color:transparent;
+    align-self: flex-end;
+}
+
+
 #submit{
-    background-color: chartreuse;
-    border-radius: 25px;
-    border: 2px solid black;
-    font-size: 20px;
-    text-decoration: none;
-    color:black;
-    font-family: Arial;
-    text-align: center;
+    margin-top: 5px;
+}
+
+p{
+    color:white;
+}
+
+#container {
+    width: 60%;
+    position: relative;
+    background: rgba(217, 217, 217, 0.4);
+    margin-bottom: 15px;
+    padding: 25px;
+}
+
+.title-content > p > img{
+    width: 100%;
+    height: 100%;
+}
+
+#title{
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    align-self: flex-start;
+    margin: 5% 0 0 20%;
+}
+
+.icons{
+    align-self: flex-end;
+    margin-left: auto;
+    color:white;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color:rgb(231, 225, 225);
+}
+
+svg{
+    width: 20px;
+    height: 20px;
+    margin-left:5px;
+}
+
+#comment-author{
+    align-self: flex-end;
+    margin-left:auto;
+    margin-bottom:7px;
+}
+
+.date_author p {
+    margin-bottom: 10px;
 }

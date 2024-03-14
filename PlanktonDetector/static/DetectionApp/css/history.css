@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 100vw;
+    margin-top: 40px;
 }
 
 h2{
     margin-bottom:25px;
+    color: white;
 }
 
 ul{
@@ -14,9 +16,14 @@ ul{
 }
 
 .history_list a{
+    display: flex;
     text-decoration: none;
-    width: 50%;
-    color: black;
+    width: 100%;
+    color: white;
+}
+
+.history_details a{
+    border-bottom: 1px solid white;
 }
 
 .history_details{
@@ -34,4 +41,44 @@ ul{
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
+}
+
+img{
+    margin-bottom: 10px;
+}
+
+.pagination{
+    text-wrap: nowrap;
+    color:white;
+    margin-bottom:15px;
+}
+
+.step-links{
+    display: flex;
+    flex-direction: row;
+}
+
+.step-links *{
+    margin-right: 5px;
+}
+
+
+.btn-primary{
+    background-color: #205985;
+    --bs-btn-border-color:transparent;
+}
+
+#container {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    background: rgba(217, 217, 217, 0.4);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 25px;
+}
+
+.none_info{
+    font-size: 40px;
+    color: white;
 }

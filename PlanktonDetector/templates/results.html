@@ -2,40 +2,113 @@
 {%load static%}
 {%block extracss%}
 <link rel="stylesheet" href="{%static 'DetectionApp/css/results.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 {%endblock extracss%}
 {%block content%}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-    <div class="side_menu">
-        {% if not user.is_authenticated %}
-            <p id="description">Please login to see results</p>
-            <a href="{% url 'login'%}?next={{request.path}}" id="submit">Login</a>
-        {% else %}
-            <p id="description">Results:</p>
-            {%for img in img.images.all %}
-            <p class="image_number">Image {{forloop.counter}}</p>
-            {%for detection in img.get_prediction_data%}
-            <div class="results">
-            <p class="detection_info">{{detection.class}}: {{detection.confidence}}%</p>
-            </div>
-            {%endfor%}
-            {%endfor%}
-            <a href="{% url 'detect' %}" id="submit">Submit again</a>
-        {%endif%}
-    </div>
     <div class="upload_field">
-            <label>
-            {%for img in img.images.all %}
-                <img src="{{img.image.url}}" alt="upload_image" style="width:640px; height:460px;">
-            {%endfor%}
-            </label>
-            <a href="{%url 'download_predicitions' pk=img.id %}" id="download_json">Export predictions</a>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+      <img class="d-block w-100" src="{{img.images.all.0.image.url}}" alt="Second slide">
+      {% if img.images.all.0.get_prediction_data.0.class is None%}
+      <div class="alert alert-danger" role="alert">No detections</div>
+      {%else%}
+      <div class="alert alert-success" role="alert">
+      {%for det in img.images.all.0.get_prediction_data%}
+      {{det.class}} - {{det.confidence}}%
+      <br>
+      {%endfor%}
+      </div>
+      {%endif%}
     </div>
-    </form>
-    <script>
-        var results=document.getElementsByClassName("results")
-        for (var i = 0; i < results.length; i++){
-            results[i].style.background=`linear-gradient(90deg, #7fff00 ${results[i].textContent.split(":")[1]}, #FFFFFF 0%)`
-        };
-    </script>
-    {%endblock content%}
+    {%for pic in img.images.all%}
+    {% if forloop.first%}
+    {%else%}
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{pic.image.url}}" alt="Second slide">
+    {% for detection in pic.get_prediction_data%}
+      {%if detection.class in None%}
+      <div class="alert alert-danger" role="alert">No detections</div>
+      {%endif%}
+      {%endfor%}
+      {% for detection in pic.get_prediction_data %}
+        {% if detection.class is not None%}
+        <div class="alert alert-success" role="alert">
+          {{detection.class}} - {{detection.confidence}}%
+          <br>
+        </div>
+          {%else%}
+          <div class="alert alert-danger" role="alert">No detections</div>
+    {%endif%}
+    {%endfor%}
+    </div>
+    {%endif%}
+    {%endfor%}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="downloads">
+<a href="{% url 'download_predictions' pk=img.id%}" class="btn btn-primary"> Export to json
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+</svg></a>
+<a href="{% url 'download_predictions' pk=img.id%}?zip=True" class="btn btn-primary"> Export with images
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+</svg></a>
+</div>
+</form>
+{%endblock content%}
+{%block extrascript%}
+<script>
+  $(document).ready(function() {
+    // Initial width adjustment
+    adjustCarouselWidth();
+
+    // Listen for window resize events
+    $(window).resize(function() {
+      adjustCarouselWidth();
+    });
+  });
+
+  function adjustCarouselWidth() {
+    // Check if the window width is below 700 pixels
+    if ($(window).width() < 700) {
+      // Set the desired width for the carousel-inner
+      $('.carousel-inner').css('width', '330px');
+    } else {
+      // Reset to the default width when window width is 700 pixels or more
+      $('.carousel-inner').css('width', '640px');
+    }
+  }
+ 
+$(document).ready(function() {
+    // Check the number of child elements in carousel-inner
+    checkCarouselControls();
+  });
+
+  function checkCarouselControls() {
+    var numCarouselItems = $('.carousel-inner > div').length;
+
+    // Check if there are more than 1 carousel items
+    if (numCarouselItems > 1) {
+      // Hide the carousel controls
+      $('.carousel-control-next, .carousel-control-prev').show();
+    } else {
+      // Show the carousel controls
+      $('.carousel-control-next, .carousel-control-prev').hide();
+    }
+  }
+</script>
+{%endblock extrascript%}

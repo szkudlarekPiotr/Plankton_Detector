@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {%load static%}
+{% load crispy_forms_tags %}
 {%block extracss%}
 <link rel="stylesheet" href="{% static 'DetectionApp/css/login_signup.css' %}">
 {%endblock extracss%}
@@ -12,13 +13,13 @@
 {%endif%}
     <form class="form" method="post">
         {%csrf_token%}
-        {{form}}
+        {{form|crispy}}
     {% if signup is None%}
-        <input type="submit" id="submit" value="Log in">
+        <input type="submit" value="Log in" class="btn btn-primary">
     </form>
-<p class="signup_label">Don't have an account? <a href="{%url 'signup'%}">Sign Up</a></p>
+<p class="signup_label">Don't have an account? <a href="{%url 'signup'%}" class="btn btn-primary">Sign Up</a></p>
 {%else%}
-        <input type="submit" id="submit" value="Sign Up">
+        <input type="submit" value="Sign Up" class="btn btn-primary">
     </form>
 {%endif%}
 </div>
