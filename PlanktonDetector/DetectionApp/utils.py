@@ -6,7 +6,7 @@ import requests
 import base64
 
 url = "https://detect.roboflow.com/plankton-vhsho/1"
-api_key = "rOMkjz5YVWzqQeMRV8Ck"
+api_key = ""
 
 
 def predict_image(image):
