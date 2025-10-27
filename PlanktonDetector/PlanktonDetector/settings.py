@@ -86,10 +86,10 @@ WSGI_APPLICATION = "PlanktonDetector.wsgi.app"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "s456496",
-        "USER": "s456496",
-        "PASSWORD": "oxickerynescenu",
-        "HOST": "psql.wmi.amu.edu.pl",
+        "NAME": "plankton_db",
+        "USER": "plankton_admin",
+        "PASSWORD": f"{os.environ.get('DB_PASS')}",
+        "HOST": "100.84.109.119",
         "PORT": "5432",
     }
 }
@@ -130,9 +130,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_ROOT = BASE_DIR / "static/"
+# STATIC_ROOT = BASE_DIR / "static/"
 
-#STATICFILES_DIRS=(f"{BASE_DIR}/static/",)
+STATICFILES_DIRS=(f"{BASE_DIR}/static/",)
 
 MEDIA_ROOT = BASE_DIR / "uploaded_media"
 
