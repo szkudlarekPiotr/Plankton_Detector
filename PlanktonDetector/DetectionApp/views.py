@@ -40,7 +40,6 @@ class DetectView(View):
                 image.predicted_image_url = f"{image.image.name.split('.')[0]}_predicted.{image.image.name.split('.')[-1]}"
                 image.save()
                 if prediction_results["predictions"]:
-                    print(prediction_results)
                     predicted_image = PredictedImage.objects.create(
                         original_image=image,
                         image=image.predicted_image_url,
